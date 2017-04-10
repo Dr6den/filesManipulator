@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script> 
+    <script src="sendController.js"></script>
+</head>
+<body ng-app="postApp" ng-controller="postController">
+<div class="container">
+<div class="col-sm-8 col-sm-offset-2">
+    <div class="page-header"><h1>Post data</h1></div>
+    <!-- FORM -->
+    <form name="userForm" ng-submit="submitForm()">
+    <div class="form-group">
+        <label>Save Text to database</label>
+        <input type="text" name="text" class="form-control" ng-model="text">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <br>
+    <br>
+    <br>
+    <a href="/filesManipulator/index.html" target="_blank">Back</a>
+    </form>
+</div>
+</div>
+</body>
+</html>

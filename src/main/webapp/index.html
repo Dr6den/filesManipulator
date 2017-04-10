@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/ng-table.src.js"></script>
+    <link rel="stylesheet" href="css/ng-table.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
+    <script src="filesRestController.js"></script>
+</head>
+
+<body ng-app="main">
+
+<h1>Table with sorting</h1>
+
+<div ng-controller="DemoCtrl">
+
+    <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+    <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
+        
+        <table ng-table="tableParams" class="table">
+            <tr ng-repeat="textFile in $data">
+                <td data-title="'Name'" sortable="'name'">
+                    {{textFile.name}}
+                </td>
+                <td data-title="'Number of lines'" sortable="'numberOfLines'">
+                    {{textFile.numberOfLines}}
+                </td>
+                <td data-title="'Text length'" sortable="'textLength'">
+                    {{textFile.textLength}}
+                </td>
+            </tr>
+        </table>
+
+        
+
+</div>
+
+  <a href="/filesManipulator/sendtext.html" target="_blank">insert file</a>
+  
+</body>
+</html>
