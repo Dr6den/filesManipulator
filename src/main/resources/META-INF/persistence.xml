@@ -3,6 +3,8 @@
   <persistence-unit name="com.mycompany_filesManipulator_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <class>com.mycompany.filesmanipulator.dao.entity.TextLine</class>
     <class>com.mycompany.filesmanipulator.dao.entity.FileStatistics</class>
+    <class>com.mycompany.filesmanipulator.dao.entity.FlatOwner</class>
+    <class>com.mycompany.filesmanipulator.dao.entity.Flat</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/text_files_statistics?useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>

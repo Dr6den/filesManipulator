@@ -1,6 +1,8 @@
 package com.mycompany.filesmanipulator.dao;
 
 import com.mycompany.filesmanipulator.dao.entity.FileStatistics;
+import com.mycompany.filesmanipulator.dao.entity.Flat;
+import com.mycompany.filesmanipulator.dao.entity.FlatOwner;
 import com.mycompany.filesmanipulator.dao.entity.TextLine;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +23,8 @@ public class SessionManager {
             Configuration configuration = new Configuration().configure();
             configuration.addAnnotatedClass(FileStatistics.class);
             configuration.addAnnotatedClass(TextLine.class);
+            configuration.addAnnotatedClass(FlatOwner.class);
+            configuration.addAnnotatedClass(Flat.class);
             ServiceRegistry serviceRegistry
                 = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
