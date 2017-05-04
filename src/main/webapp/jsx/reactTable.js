@@ -6,6 +6,10 @@ function TextInfo(name, numberOfLines, textLength) {
 
 var tableData = new Array();
 
+var Table = Reactable.Table,
+    Thead = Reactable.Thead,
+    Th = Reactable.Th;
+
 var App = React.createClass({
  
   loadTextInfoFromServer: function () {
@@ -35,33 +39,24 @@ var App = React.createClass({
   }
 });
 
-var TextElem = React.createClass({
-  render: function() {
-    return (
-      <tr>
-        <td>{this.props.textInfo.name}</td>
-        <td>{this.props.textInfo.numberOfLines}</td>
-        <td>{this.props.textInfo.textLength}</td>
-      </tr>);
-  }
-});
-
 var TextInfoTable = React.createClass({
   render: function() {
-    var rows = [];
-    this.props.tableData.forEach(function(textInfo) {
-      rows.push(<TextElem textInfo={textInfo} />);
-    });
+    
     return (
       <div className="container">
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th><th>Number of lines</th><th>Text length</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+      <Table className="table table-striped fixed"
+            filterable={['name', 'numberOfLines', 'textLength']}
+            noDataText="No matching records found"
+            itemsPerPage={10}
+            currentPage={0}
+            sortable={true}
+            data={tableData}>
+        <Thead>
+            <Th column="name">Name</Th>
+            <Th column="numberOfLines">Number of lines</Th>
+            <Th column="textLength">Text length</Th>
+        </Thead>
+      </Table>
       </div>);
   }
 });
