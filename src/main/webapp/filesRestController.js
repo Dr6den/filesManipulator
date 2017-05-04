@@ -7,7 +7,7 @@
     App2.factory('getFiles', function($http) {
         return {
             getJson: function() {
-                var url = 'http://localhost:8080/filesManipulator/rest/textFilesController';
+                var url = '/filesManipulator/rest/textFilesController';
                 return $http.get(url);
             }
         }
