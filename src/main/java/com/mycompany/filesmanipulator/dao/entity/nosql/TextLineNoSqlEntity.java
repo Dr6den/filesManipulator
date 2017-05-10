@@ -1,18 +1,18 @@
 package com.mycompany.filesmanipulator.dao.entity.nosql;
 
 import com.datastax.driver.core.utils.UUIDs;
+import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import java.io.Serializable;
 import java.util.UUID;
-import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author andrew
  */
-@Table(keyspace = "filesmanipulator", name = "file_statistics")
+@Table(keyspace = "filesmanipulator", name = "text_line")
 @XmlRootElement
 public class TextLineNoSqlEntity implements Serializable {
 

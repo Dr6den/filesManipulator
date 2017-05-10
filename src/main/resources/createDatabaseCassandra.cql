@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS text_line;
 CREATE TABLE text_line (
     line_id UUID,
     file_id UUID,
-    text_id INT,
     line text,
     PRIMARY KEY (line_id, file_id)
 );
