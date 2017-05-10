@@ -1,5 +1,6 @@
 package com.mycompany.filesmanipulator.dao;
 
+import com.datastax.driver.core.Cluster;
 import com.mycompany.filesmanipulator.dao.entity.FileStatistics;
 import com.mycompany.filesmanipulator.dao.entity.Flat;
 import com.mycompany.filesmanipulator.dao.entity.FlatOwner;
@@ -16,8 +17,9 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class SessionManager {
     private static SessionFactory sessionFactory;
+    private static Cluster cluster;
      
-    public static Session getSession() {
+    public static Session getMysqlSession() {
         if (sessionFactory == null) {
             // loads configuration and mappings
             Configuration configuration = new Configuration().configure();
@@ -31,8 +33,12 @@ public class SessionManager {
              
             // builds a session factory from the service registry
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);           
-        }
-         
+        }         
         return sessionFactory.openSession();
+    }
+    
+    public static com.datastax.driver.core.Session getCassandraSession() {
+        Cluster cluster = Cluster.builder().addContactPoints("127.0.0.1").build();
+        return cluster.connect();
     }
 }

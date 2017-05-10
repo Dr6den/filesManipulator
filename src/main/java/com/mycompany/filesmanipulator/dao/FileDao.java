@@ -11,11 +11,11 @@ import org.hibernate.criterion.Restrictions;
  * @author andrew
  */
 public class FileDao {
-    public void save(TextFile textFile) {System.out.println("1--------------------------------");
+    public void save(TextFile textFile) {
         FileStatistics stat = new FileStatistics(textFile.getName(), textFile.getPath(),
-                textFile.getTextLength(), textFile.getNumberOfLines(), textFile.getLines());System.out.println("2--------------------------------");       
-        try (Session session = SessionManager.getSession()) {System.out.println("3--------------------------------");
-            session.beginTransaction();System.out.println("4--------------------------------");
+                textFile.getTextLength(), textFile.getNumberOfLines(), textFile.getLines());      
+        try (Session session = SessionManager.getMysqlSession()) {
+            session.beginTransaction();
             session.saveOrUpdate(stat);
             session.getTransaction().commit();
         }
@@ -23,7 +23,7 @@ public class FileDao {
     
     public FileStatistics getTextFileByName(String name) {
         FileStatistics textFile = null;
-        try (Session session = SessionManager.getSession()) {
+        try (Session session = SessionManager.getMysqlSession()) {
             Criteria criteria = session.createCriteria(FileStatistics.class);
             textFile = (FileStatistics) criteria.add(Restrictions.eq("name", name))
                              .uniqueResult();
@@ -32,7 +32,7 @@ public class FileDao {
     }
     
     public void deleteTextFile(FileStatistics textFile) {
-        try (Session session = SessionManager.getSession()) {
+        try (Session session = SessionManager.getMysqlSession()) {
             session.beginTransaction();
             session.delete(textFile);
             session.getTransaction().commit();
