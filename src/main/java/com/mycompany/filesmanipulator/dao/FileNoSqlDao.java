@@ -7,8 +7,6 @@ import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
 import com.mycompany.filesmanipulator.dao.entity.nosql.FileStatisticsNoSqlEntity;
 import com.mycompany.filesmanipulator.entity.TextFile;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
