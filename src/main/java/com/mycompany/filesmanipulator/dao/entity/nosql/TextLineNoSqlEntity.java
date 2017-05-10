@@ -1,12 +1,11 @@
 package com.mycompany.filesmanipulator.dao.entity.nosql;
 
+import com.datastax.driver.core.utils.UUIDs;
+import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.UUID;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,34 +17,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TextLineNoSqlEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "line_id")
-    private Integer lineId;
+    @PartitionKey(0)
+    @Column(name="line_id")
+    private UUID lineId;
+    @PartitionKey(1)
+    @Column(name="file_id")
+    private UUID fileId;
     private String line;
 
-    public TextLineNoSqlEntity(String line) {
+    public TextLineNoSqlEntity(String line, UUID fileId) {
+        this.lineId = UUIDs.timeBased();
         this.line = line;
+        this.fileId = fileId;
     }
 
     public TextLineNoSqlEntity() {
     }
 
-    public TextLineNoSqlEntity(Integer lineId) {
+    public TextLineNoSqlEntity(UUID lineId, UUID fileId) {
         this.lineId = lineId;
+        this.fileId = fileId;
     }
 
-    public Integer getLineId() {
+    public UUID getLineId() {
         return lineId;
     }
 
-    public void setLineId(Integer lineId) {
+    public void setLineId(UUID lineId) {
         this.lineId = lineId;
     }
 
     public String getLine() {
         return line;
+    }
+
+    public UUID getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(UUID fileId) {
+        this.fileId = fileId;
     }
 
     public void setLine(String line) {
