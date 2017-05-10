@@ -1,6 +1,7 @@
 package com.mycompany.filesmanipulator.dao;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.extras.codecs.jdk8.InstantCodec;
 import com.mycompany.filesmanipulator.dao.entity.FileStatistics;
 import com.mycompany.filesmanipulator.dao.entity.Flat;
 import com.mycompany.filesmanipulator.dao.entity.FlatOwner;
@@ -39,6 +40,7 @@ public class SessionManager {
     
     public static com.datastax.driver.core.Session getCassandraSession() {
         Cluster cluster = Cluster.builder().addContactPoints("127.0.0.1").build();
+        cluster.getConfiguration().getCodecRegistry().register(InstantCodec.instance);
         return cluster.connect();
     }
 }
