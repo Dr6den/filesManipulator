@@ -13,4 +13,7 @@ import com.datastax.driver.mapping.annotations.Query;
 public interface FileNoSqlAccestor {
     @Query("select * from filesmanipulator.file_statistics where name=:n ALLOW FILTERING")
     ResultSet selectByName(@Param("n") String name);
+    
+    @Query("select * from filesmanipulator.file_statistics where name=:n ALLOW FILTERING")
+    ResultSet selectLinesOfFile(@Param("n") String name);
 }

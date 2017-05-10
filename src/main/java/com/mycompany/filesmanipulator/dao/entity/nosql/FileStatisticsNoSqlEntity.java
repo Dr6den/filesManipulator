@@ -27,6 +27,7 @@ public class FileStatisticsNoSqlEntity implements Serializable {
     private Integer textLength;
     @Column(name="number_of_lines")
     private Integer numberOfLines;
+    private List<String> lines;
 
     public FileStatisticsNoSqlEntity(String name, String path, Integer textLength, Integer numberOfLines, List<String> lines) {
         this.fileId = UUIDs.timeBased();
@@ -34,6 +35,7 @@ public class FileStatisticsNoSqlEntity implements Serializable {
         this.path = path;
         this.textLength = textLength;
         this.numberOfLines = numberOfLines;
+        this.lines = lines;
     }
 
     public FileStatisticsNoSqlEntity() {
@@ -41,6 +43,14 @@ public class FileStatisticsNoSqlEntity implements Serializable {
 
     public FileStatisticsNoSqlEntity(UUID fileId) {
         this.fileId = UUIDs.timeBased();
+    }
+
+    public List<String> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<String> lines) {
+        this.lines = lines;
     }
 
     public UUID getFileId() {

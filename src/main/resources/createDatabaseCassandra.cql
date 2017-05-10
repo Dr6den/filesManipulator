@@ -8,13 +8,6 @@ CREATE TABLE file_statistics (
     name text,
     path text,
     text_length INT,
-    number_of_lines INT
-);
-
-DROP TABLE IF EXISTS text_line;
-CREATE TABLE text_line (
-    line_id UUID,
-    file_id UUID,
-    line text,
-    PRIMARY KEY (line_id, file_id)
+    number_of_lines INT,
+    lines list<text>
 );

@@ -8,6 +8,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -38,6 +39,11 @@ public class FileNoSqlDaoTest {
         assertEquals((int)savedTextFile.getNumberOfLines(), textFile.getNumberOfLines());
         assertEquals((int)savedTextFile.getTextLength(), textFile.getTextLength());
         assertEquals(savedTextFile.getPath(), textFile.getPath());
+        
+        List<String> savedLines = savedTextFile.getLines();
+        assertEquals(savedLines.size(), 2);
+        assertTrue(savedLines.contains("start"));
+        assertTrue(savedLines.contains("finish"));
         
         dao.deleteTextFile(savedTextFile);
         savedTextFile = dao.getTextFileByName(name);

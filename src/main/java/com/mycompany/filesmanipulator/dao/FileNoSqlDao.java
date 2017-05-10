@@ -6,7 +6,6 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
 import com.mycompany.filesmanipulator.dao.entity.nosql.FileStatisticsNoSqlEntity;
-import com.mycompany.filesmanipulator.dao.entity.nosql.TextLineNoSqlEntity;
 import com.mycompany.filesmanipulator.entity.TextFile;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,17 +18,11 @@ public class FileNoSqlDao {
     public void save(TextFile textFile) {
         FileStatisticsNoSqlEntity stat = new FileStatisticsNoSqlEntity(textFile.getName(), textFile.getPath(),
                 textFile.getTextLength(), textFile.getNumberOfLines(), textFile.getLines());
-        List<TextLineNoSqlEntity> lineStat = textFile.getLines().stream()
-                .map((String l) -> new TextLineNoSqlEntity(l, stat.getFileId())).collect(Collectors.toList());
         
         Mapper<FileStatisticsNoSqlEntity> mapper;
-        Mapper<TextLineNoSqlEntity> innerLinesMapper;
         try (Session session = SessionManager.getCassandraSession()) {
             mapper = new MappingManager(session).mapper(FileStatisticsNoSqlEntity.class);
-            innerLinesMapper = new MappingManager(session).mapper(TextLineNoSqlEntity.class);
             mapper.save(stat);
-            
-            lineStat.forEach((TextLineNoSqlEntity e) -> innerLinesMapper.save(e));
         }
     }
     
@@ -47,8 +40,9 @@ public class FileNoSqlDao {
                 textFile.setPath(row.getString("path"));
                 textFile.setNumberOfLines(row.getInt("number_of_lines"));
                 textFile.setTextLength(row.getInt("text_length"));
-            }
-        }
+                textFile.setLines(row.getList("lines", String.class));
+            }           
+        }        
         return textFile;
     }
     
