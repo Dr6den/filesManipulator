@@ -1,25 +1,19 @@
 package com.mycompany.filesmanipulator.dao.entity.nosql;
 
-import com.mycompany.filesmanipulator.dao.entity.*;
+import com.datastax.driver.mapping.annotations.Table;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author andrew
  */
-@Entity
-@Table(name = "text_line", catalog = "text_files_statistics", schema = "")
+@Table(keyspace = "filesmanipulator", name = "file_statistics")
 @XmlRootElement
 public class TextLineNoSqlEntity implements Serializable {
 
@@ -29,12 +23,7 @@ public class TextLineNoSqlEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "line_id")
     private Integer lineId;
-    @Size(max = 200)
-    @Column(name = "line")
     private String line;
-    @JoinColumn(name = "text_id", referencedColumnName = "file_id")
-    @ManyToOne
-    private FileStatisticsNoSqlEntity textId;
 
     public TextLineNoSqlEntity(String line) {
         this.line = line;
@@ -61,14 +50,6 @@ public class TextLineNoSqlEntity implements Serializable {
 
     public void setLine(String line) {
         this.line = line;
-    }
-
-    public FileStatisticsNoSqlEntity getTextId() {
-        return textId;
-    }
-
-    public void setTextId(FileStatisticsNoSqlEntity textId) {
-        this.textId = textId;
     }
 
     @Override
