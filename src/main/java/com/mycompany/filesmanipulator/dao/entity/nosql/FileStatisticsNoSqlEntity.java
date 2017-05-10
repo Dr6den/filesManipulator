@@ -1,6 +1,7 @@
 package com.mycompany.filesmanipulator.dao.entity.nosql;
 
 import com.datastax.driver.core.utils.UUIDs;
+import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import java.io.Serializable;
@@ -18,10 +19,13 @@ public class FileStatisticsNoSqlEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @PartitionKey
+    @Column(name="file_id")
     private UUID fileId;
     private String name;
     private String path;
+    @Column(name="text_length")
     private Integer textLength;
+    @Column(name="number_of_lines")
     private Integer numberOfLines;
 
     public FileStatisticsNoSqlEntity(String name, String path, Integer textLength, Integer numberOfLines, List<String> lines) {
