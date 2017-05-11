@@ -5,16 +5,23 @@ import com.mycompany.filesmanipulator.dao.entity.TextLine;
 import com.mycompany.filesmanipulator.entity.TextFile;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import org.jglue.cdiunit.CdiRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author andrew
  */
+@RunWith(CdiRunner.class)
 public class FileDaoTest {
+    @Inject
+    private FileDao fileDao;
+    
     @Test
     public void saveFileTest() {
         String name = "Nadia";
@@ -28,10 +35,9 @@ public class FileDaoTest {
         lines.add("finish");
         textFile.setLines(lines);
         
-        FileDao dao = new FileDao();
-        dao.save(textFile);
+        fileDao.save(textFile);
         
-        FileStatistics stat = dao.getTextFileByName(name);
+        FileStatistics stat = fileDao.getTextFileByName(name);
         List<TextLine> savedLines = (List<TextLine>) stat.getTextLineCollection();
         assertNotNull(stat);
         assertNotNull(savedLines);
@@ -42,12 +48,11 @@ public class FileDaoTest {
     @Test
     public void deleteFileTest() {
         String name = "Nadia";
-        FileDao dao = new FileDao();        
-        FileStatistics stat = dao.getTextFileByName(name);
+        FileStatistics stat = fileDao.getTextFileByName(name);
         assertNotNull(stat);
         
-        dao.deleteTextFile(stat);
-        stat = dao.getTextFileByName(name);
+        fileDao.deleteTextFile(stat);
+        stat = fileDao.getTextFileByName(name);
         assertNull(stat);
     }
 }

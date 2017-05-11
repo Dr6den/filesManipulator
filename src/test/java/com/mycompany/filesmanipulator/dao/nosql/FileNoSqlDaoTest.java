@@ -5,17 +5,24 @@ import com.mycompany.filesmanipulator.dao.entity.nosql.FileStatisticsNoSqlEntity
 import com.mycompany.filesmanipulator.entity.TextFile;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import org.jglue.cdiunit.CdiRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author andrew
  */
+@RunWith(CdiRunner.class)
 public class FileNoSqlDaoTest {
+    @Inject
+    private FileNoSqlDao fileNoSqlDao;
+    
     @Test
     public void crudCassandraTest() {
         String name = "Nadia";
@@ -29,10 +36,9 @@ public class FileNoSqlDaoTest {
         lines.add("finish");
         textFile.setLines(lines);
         
-        FileNoSqlDao dao = new FileNoSqlDao();
-        dao.save(textFile);
+        fileNoSqlDao.save(textFile);
         
-        FileStatisticsNoSqlEntity savedTextFile = dao.getTextFileByName(name);
+        FileStatisticsNoSqlEntity savedTextFile = fileNoSqlDao.getTextFileByName(name);
         assertNotNull(savedTextFile);
         assertNotNull(savedTextFile.getFileId());
         assertEquals(savedTextFile.getName(), name);
@@ -45,8 +51,8 @@ public class FileNoSqlDaoTest {
         assertTrue(savedLines.contains("start"));
         assertTrue(savedLines.contains("finish"));
         
-        dao.deleteTextFile(savedTextFile);
-        savedTextFile = dao.getTextFileByName(name);
+        fileNoSqlDao.deleteTextFile(savedTextFile);
+        savedTextFile = fileNoSqlDao.getTextFileByName(name);
         assertNull(savedTextFile);
     }
     

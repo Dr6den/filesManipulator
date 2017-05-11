@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 
 /**
  *
  * @author andrew
  */
+@Named
 public class TextFilesService {
+    @Inject
+    private FileDao fileDao;
     
     public List<TextFile> getAllFilesFromFolder() {
         List<TextFile> files = null;
@@ -31,7 +36,6 @@ public class TextFilesService {
         List<String> lines = new ArrayList<>();
         lines.add(text);
         TextFile file = new TextFile(lines);
-        FileDao dao = new FileDao();
-        dao.save(file);
+        fileDao.save(file);
     }
 }

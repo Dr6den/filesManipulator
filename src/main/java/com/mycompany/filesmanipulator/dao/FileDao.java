@@ -2,6 +2,7 @@ package com.mycompany.filesmanipulator.dao;
 
 import com.mycompany.filesmanipulator.dao.entity.FileStatistics;
 import com.mycompany.filesmanipulator.entity.TextFile;
+import javax.inject.Named;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -10,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author andrew
  */
+@Named
 public class FileDao {
     public void save(TextFile textFile) {
         FileStatistics stat = new FileStatistics(textFile.getName(), textFile.getPath(),

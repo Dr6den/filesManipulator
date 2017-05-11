@@ -11,15 +11,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.context.annotation.Bean;
 
 /**
  *
  * @author andrew
  */
+@org.springframework.context.annotation.Configuration
 public class SessionManager {
     private static SessionFactory sessionFactory;
     private static Cluster cluster;
      
+    @Bean(name="MySql&MariaDbConnection")
     public static Session getMysqlSession() {
         if (sessionFactory == null) {
             // loads configuration and mappings
@@ -38,6 +41,7 @@ public class SessionManager {
         return sessionFactory.openSession();
     }
     
+    @Bean(name="CassandraSession")
     public static com.datastax.driver.core.Session getCassandraSession() {
         Cluster cluster = Cluster.builder().addContactPoints("127.0.0.1").build();
         cluster.getConfiguration().getCodecRegistry().register(InstantCodec.instance);
